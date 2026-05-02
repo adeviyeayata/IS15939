@@ -12,6 +12,9 @@ public class MainFrame extends JFrame {
     private final StepIndicatorPanel stepIndicator;
     private int currentStep = 1;
 
+    private Step3PlanPanel step3Panel;
+    private Step4CollectPanel step4Panel;
+
     public MainFrame() {
         this.sessionData = new SessionData();
         this.cardLayout  = new CardLayout();
@@ -37,33 +40,34 @@ public class MainFrame extends JFrame {
     private void buildStepPanels() {
         cardPanel.add(new Step1ProfilePanel(sessionData, () -> goTo(2)), "STEP1");
         cardPanel.add(new Step2DefinePanel(sessionData, () -> goTo(3), () -> goTo(1)), "STEP2");
-        cardPanel.add(buildPlaceholder("Step 3: Plan — Coming in Week 2"),    "STEP3");
-        cardPanel.add(buildPlaceholder("Step 4: Collect — Coming in Week 2"), "STEP4");
-        cardPanel.add(buildPlaceholder("Step 5: Analyse — Coming in Week 3"), "STEP5");
-    }
-
-    private JPanel buildPlaceholder(String message) {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(Color.WHITE);
-        JLabel lbl = new JLabel(message, SwingConstants.CENTER);
-        lbl.setFont(new Font("SansSerif", Font.BOLD, 20));
-        lbl.setForeground(new Color(130, 140, 150));
-        panel.add(lbl, BorderLayout.CENTER);
-
-        JPanel btnPanel = new JPanel(new BorderLayout());
-        btnPanel.setBackground(Color.WHITE);
-        btnPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
-        JButton back = new JButton("← Back");
-        back.addActionListener(e -> goTo(currentStep - 1));
-        btnPanel.add(back, BorderLayout.WEST);
-        panel.add(btnPanel, BorderLayout.SOUTH);
-        return panel;
     }
 
     public void goTo(int step) {
         currentStep = step;
         stepIndicator.setCurrentStep(step);
-        String[] cards = {"STEP1", "STEP2", "STEP3", "STEP4", "STEP5"};
-        cardLayout.show(cardPanel, cards[step - 1]);
+
+        if (step == 3) {
+            if (step3Panel != null) {
+                cardPanel.remove(step3Panel);
+            }
+            step3Panel = new Step3PlanPanel(sessionData, () -> goTo(4), () -> goTo(2));
+            cardPanel.add(step3Panel, "STEP3");
+            cardLayout.show(cardPanel, "STEP3");
+            cardPanel.revalidate();
+            cardPanel.repaint();
+        } else if (step == 4) {
+            if (step4Panel != null) {
+                cardPanel.remove(step4Panel);
+            }
+            step4Panel = new Step4CollectPanel(sessionData, () -> goTo(5), () -> goTo(3));
+            cardPanel.add(step4Panel, "STEP4");
+            cardLayout.show(cardPanel, "STEP4");
+            cardPanel.revalidate();
+            cardPanel.repaint();
+        } else if (step == 1) {
+            cardLayout.show(cardPanel, "STEP1");
+        } else if (step == 2) {
+            cardLayout.show(cardPanel, "STEP2");
+        }
     }
 }

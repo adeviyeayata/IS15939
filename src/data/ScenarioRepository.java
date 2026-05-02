@@ -21,7 +21,7 @@ public class ScenarioRepository {
     private static void buildEducationScenarios() {
 
         // Scenario C
-        Scenario scenC = new Scenario("C", "Scenario C — Team Alpha", "Education", "Product");
+        Scenario scenC = new Scenario("C", "Scenario C — Team Alpha", "Education", "Product Quality");
 
         Dimension usability = new Dimension("Usability", 25);
         usability.addMetric(new Metric("SUS score",       50, true,  0, 100, "points"));
@@ -39,7 +39,7 @@ public class ScenarioRepository {
         scenC.addDimension(accessibility);
 
         Dimension reliability = new Dimension("Reliability", 20);
-        reliability.addMetric(new Metric("Uptime", 50, true,  95, 100, "%" ));
+        reliability.addMetric(new Metric("Uptime", 50, true,  95, 100, "%"));
         reliability.addMetric(new Metric("MTTR",   50, false,  0, 120, "min"));
         scenC.addDimension(reliability);
 
@@ -48,7 +48,6 @@ public class ScenarioRepository {
         funcSuit.addMetric(new Metric("Assignment submit rate", 50, true, 0, 100, "%"));
         scenC.addDimension(funcSuit);
 
-        // Scenario C raw values
         scenC.getDimensions().get(0).getMetrics().get(0).setRawValue(89);
         scenC.getDimensions().get(0).getMetrics().get(1).setRawValue(5);
         scenC.getDimensions().get(1).getMetrics().get(0).setRawValue(2);
@@ -62,7 +61,7 @@ public class ScenarioRepository {
         scenarios.put("C", scenC);
 
         // Scenario D
-        Scenario scenD = new Scenario("D", "Scenario D — Team Beta", "Education", "Product");
+        Scenario scenD = new Scenario("D", "Scenario D — Team Beta", "Education", "Product Quality");
 
         Dimension usability2 = new Dimension("Usability", 25);
         usability2.addMetric(new Metric("Task success rate",   50, true,  0, 100, "%"));
@@ -105,7 +104,7 @@ public class ScenarioRepository {
     private static void buildHealthScenarios() {
 
         // Scenario A
-        Scenario scenA = new Scenario("A", "Scenario A — Sprint Review", "Health", "Process");
+        Scenario scenA = new Scenario("A", "Scenario A — Sprint Review", "Health", "Process Quality");
 
         Dimension sprintEff = new Dimension("Sprint Efficiency", 30);
         sprintEff.addMetric(new Metric("Velocity",          50, true, 0, 200, "points"));
@@ -138,7 +137,7 @@ public class ScenarioRepository {
         scenarios.put("A", scenA);
 
         // Scenario B
-        Scenario scenB = new Scenario("B", "Scenario B — Code Review Cycle", "Health", "Process");
+        Scenario scenB = new Scenario("B", "Scenario B — Code Review Cycle", "Health", "Process Quality");
 
         Dimension reviewEff = new Dimension("Review Efficiency", 35);
         reviewEff.addMetric(new Metric("Review turnaround",   50, false, 0,  72, "hrs"));
