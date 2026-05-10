@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
 
     private Step3PlanPanel step3Panel;
     private Step4CollectPanel step4Panel;
+    private Step5AnalysePanel step5Panel;
 
     public MainFrame() {
         this.sessionData = new SessionData();
@@ -47,21 +48,24 @@ public class MainFrame extends JFrame {
         stepIndicator.setCurrentStep(step);
 
         if (step == 3) {
-            if (step3Panel != null) {
-                cardPanel.remove(step3Panel);
-            }
+            if (step3Panel != null) cardPanel.remove(step3Panel);
             step3Panel = new Step3PlanPanel(sessionData, () -> goTo(4), () -> goTo(2));
             cardPanel.add(step3Panel, "STEP3");
             cardLayout.show(cardPanel, "STEP3");
             cardPanel.revalidate();
             cardPanel.repaint();
         } else if (step == 4) {
-            if (step4Panel != null) {
-                cardPanel.remove(step4Panel);
-            }
+            if (step4Panel != null) cardPanel.remove(step4Panel);
             step4Panel = new Step4CollectPanel(sessionData, () -> goTo(5), () -> goTo(3));
             cardPanel.add(step4Panel, "STEP4");
             cardLayout.show(cardPanel, "STEP4");
+            cardPanel.revalidate();
+            cardPanel.repaint();
+        } else if (step == 5) {
+            if (step5Panel != null) cardPanel.remove(step5Panel);
+            step5Panel = new Step5AnalysePanel(sessionData, () -> goTo(4));
+            cardPanel.add(step5Panel, "STEP5");
+            cardLayout.show(cardPanel, "STEP5");
             cardPanel.revalidate();
             cardPanel.repaint();
         } else if (step == 1) {
